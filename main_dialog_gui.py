@@ -22,7 +22,7 @@ class MyFrame1 (wx.Frame):
                           pos=wx.DefaultPosition, size=wx.Size(500, 366), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-        self.SetBackgroundColour(wx.Colour(230, 242, 255))
+        self.SetBackgroundColour(wx.Colour(137, 207, 240))
 
         bSizer1 = wx.BoxSizer(wx.VERTICAL)
 
@@ -32,11 +32,13 @@ class MyFrame1 (wx.Frame):
             self, wx.ID_ANY, u"Firefox Program Folder", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText16.Wrap(-1)
 
+        self.m_staticText16.SetForegroundColour(wx.Colour(48, 48, 48))
+
         bSizer16.Add(self.m_staticText16, 1, wx.ALL, 5)
 
-        self.m_dirPicker1 = wx.DirPickerCtrl(
+        self.m_dirPicker_exe = wx.DirPickerCtrl(
             self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE)
-        bSizer16.Add(self.m_dirPicker1, 2, wx.ALL, 5)
+        bSizer16.Add(self.m_dirPicker_exe, 2, wx.ALL, 5)
 
         bSizer1.Add(bSizer16, 1, wx.EXPAND, 5)
 
@@ -46,11 +48,13 @@ class MyFrame1 (wx.Frame):
             self, wx.ID_ANY, u"App Data Folder", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText161.Wrap(-1)
 
+        self.m_staticText161.SetForegroundColour(wx.Colour(48, 48, 48))
+
         bSizer161.Add(self.m_staticText161, 1, wx.ALL, 5)
 
-        self.m_dirPicker11 = wx.DirPickerCtrl(
+        self.m_dirPicker_app_data = wx.DirPickerCtrl(
             self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE)
-        bSizer161.Add(self.m_dirPicker11, 2, wx.ALL, 5)
+        bSizer161.Add(self.m_dirPicker_app_data, 2, wx.ALL, 5)
 
         bSizer1.Add(bSizer161, 1, wx.EXPAND, 5)
 
@@ -60,13 +64,15 @@ class MyFrame1 (wx.Frame):
 
         self.m_panel2 = wx.Panel(
             self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        self.m_panel2.SetBackgroundColour(wx.Colour(225, 240, 255))
+        self.m_panel2.SetBackgroundColour(wx.Colour(137, 207, 240))
 
         bSizer3 = wx.BoxSizer(wx.VERTICAL)
 
         self.m_staticText15 = wx.StaticText(
             self.m_panel2, wx.ID_ANY, u"Firefox Profile", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText15.Wrap(-1)
+
+        self.m_staticText15.SetForegroundColour(wx.Colour(48, 48, 48))
 
         bSizer3.Add(self.m_staticText15, 0, wx.ALL, 5)
 
@@ -83,13 +89,13 @@ class MyFrame1 (wx.Frame):
         bSizer2.Add(self.m_buttonRefresh, 0, wx.ALL, 5)
 
         self.m_buttonNew = wx.Button(
-            self.m_panel2, wx.ID_ANY, u"Add Profiles", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.m_panel2, wx.ID_ANY, u"Add Profile", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer2.Add(self.m_buttonNew, 1, wx.ALL, 5)
 
         bSizer3.Add(bSizer2, 1, wx.EXPAND, 5)
 
         self.m_checkBoxEnable = wx.CheckBox(
-            self.m_panel2, wx.ID_ANY, u"Enable", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.m_panel2, wx.ID_ANY, u"Manual Proxy is enabled", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_checkBoxEnable.Enable(False)
 
         bSizer3.Add(self.m_checkBoxEnable, 0, wx.ALL, 5)
@@ -100,6 +106,8 @@ class MyFrame1 (wx.Frame):
             self.m_panel2, wx.ID_ANY, u"HTTP Proxy", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText1.Wrap(-1)
 
+        self.m_staticText1.SetForegroundColour(wx.Colour(48, 48, 48))
+
         bSizer8.Add(self.m_staticText1, 1, wx.ALL, 5)
 
         self.m_textCtrlHttpProxyURL = wx.TextCtrl(
@@ -109,6 +117,8 @@ class MyFrame1 (wx.Frame):
         self.m_staticText2 = wx.StaticText(
             self.m_panel2, wx.ID_ANY, u"Port", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText2.Wrap(-1)
+
+        self.m_staticText2.SetForegroundColour(wx.Colour(48, 48, 48))
 
         bSizer8.Add(self.m_staticText2, 1, wx.ALL, 5)
 
@@ -124,6 +134,8 @@ class MyFrame1 (wx.Frame):
             self.m_panel2, wx.ID_ANY, u"HTTPS Proxy", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText11.Wrap(-1)
 
+        self.m_staticText11.SetForegroundColour(wx.Colour(48, 48, 48))
+
         bSizer9.Add(self.m_staticText11, 1, wx.ALL, 5)
 
         self.m_textCtrlHttpsProxyUrl = wx.TextCtrl(
@@ -133,6 +145,8 @@ class MyFrame1 (wx.Frame):
         self.m_staticText21 = wx.StaticText(
             self.m_panel2, wx.ID_ANY, u"Port", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText21.Wrap(-1)
+
+        self.m_staticText21.SetForegroundColour(wx.Colour(48, 48, 48))
 
         bSizer9.Add(self.m_staticText21, 1, wx.ALL, 5)
 
@@ -148,6 +162,8 @@ class MyFrame1 (wx.Frame):
             self.m_panel2, wx.ID_ANY, u"Socks Proxy", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText111.Wrap(-1)
 
+        self.m_staticText111.SetForegroundColour(wx.Colour(48, 48, 48))
+
         bSizer91.Add(self.m_staticText111, 1, wx.ALL, 5)
 
         self.m_textCtrlSocksProxyUrl = wx.TextCtrl(
@@ -157,6 +173,8 @@ class MyFrame1 (wx.Frame):
         self.m_staticText211 = wx.StaticText(
             self.m_panel2, wx.ID_ANY, u"Port", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText211.Wrap(-1)
+
+        self.m_staticText211.SetForegroundColour(wx.Colour(48, 48, 48))
 
         bSizer91.Add(self.m_staticText211, 1, wx.ALL, 5)
 
@@ -181,5 +199,29 @@ class MyFrame1 (wx.Frame):
 
         self.Centre(wx.BOTH)
 
+        # Connect Events
+        self.m_dirPicker_exe.Bind(wx.EVT_DIRPICKER_CHANGED, self.pick_exe_dir)
+        self.m_dirPicker_app_data.Bind(
+            wx.EVT_DIRPICKER_CHANGED, self.pick_app_data_dir)
+        self.m_choiceProfiles.Bind(wx.EVT_CHOICE, self.select_profile)
+        self.m_buttonRefresh.Bind(wx.EVT_BUTTON, self.refresh_profiles)
+        self.m_buttonStart.Bind(wx.EVT_BUTTON, self.start_firefox)
+
     def __del__(self):
         pass
+
+    # Virtual event handlers, override them in your derived class
+    def pick_exe_dir(self, event):
+        event.Skip()
+
+    def pick_app_data_dir(self, event):
+        event.Skip()
+
+    def select_profile(self, event):
+        event.Skip()
+
+    def refresh_profiles(self, event):
+        event.Skip()
+
+    def start_firefox(self, event):
+        event.Skip()

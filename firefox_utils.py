@@ -52,6 +52,7 @@ def read_proxy_from_profile_pref(file_path):
         for ll in lines:
             if 'user_pref("network.proxy.socks",' in ll:
                 proxy_url = extract_value(ll).strip()
+                proxy_url = proxy_url[1:-1]
             if 'user_pref("network.proxy.socks_port"' in ll:
                 proxy_port = extract_value(ll).strip()
                 proxy = (proxy_url, proxy_port)
@@ -78,13 +79,13 @@ def get_proxy_from_profile(profile, appdata_path=''):
     # Read from prefs.js
     prefs_js_path = os.path.join(profile_path, 'prefs.js')
     proxy = read_proxy_from_profile_pref(prefs_js_path)
-    # print(proxy)
 
     # Read from user.js. If proxy is found, it will overwrite what
     # is read from prefs.js
     prefs_js_path = os.path.join(profile_path, 'user.js')
-    proxy = read_proxy_from_profile_pref(prefs_js_path)
-    # print(proxy)
+    user_proxy = read_proxy_from_profile_pref(prefs_js_path)
+    if user_proxy != ('', ''):
+        proxy = user_proxy
 
     return proxy
 
@@ -92,4 +93,4 @@ def get_proxy_from_profile(profile, appdata_path=''):
 if __name__ == '__main__':
     appdata_path = 'C:\\Users\\deann\\AppData\\Roaming\\Mozilla\\Firefox'
     profile_list = list_profiles(appdata_path)
-    get_proxy_from_profile(profile_list[2], appdata_path)
+    print(get_proxy_from_profile(profile_list[2], appdata_path))
