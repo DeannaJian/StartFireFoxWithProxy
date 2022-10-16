@@ -35,29 +35,44 @@ def extract_value(conf_line):
             should be like 'user_pref("network.proxy.socks", "127.0.0.1");
         :returns: the value. e.g. "127.0.0.1"
     """
-    return(re.search('\((.*),(.*?)\)', conf_line).group(2))
+    return(re.search('\((.*),(.*?)\)', conf_line).group(2)).strip()
 
 
 def read_proxy_from_profile_pref(file_path):
     """
         Get proxy setings in the default or user preferences.
         :param file_path: the file path for either prefs.js or user.js
-        :returns: the proxy url and port.
+        :returns: the url and port for Socks, HTTP and HTTPS proxies.
     """
-    proxy = ('', '')
+    socks_proxy = http_proxy = ssl_proxy = ('', '')
+    enable = False
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as ff:
             lines = ff.readlines()
 
         for ll in lines:
+            if 'network.proxy.type' in ll:
+                enable = (extract_value(ll) == '1')
             if 'user_pref("network.proxy.socks",' in ll:
-                proxy_url = extract_value(ll).strip()
+                proxy_url = extract_value(ll)
                 proxy_url = proxy_url[1:-1]
             if 'user_pref("network.proxy.socks_port"' in ll:
-                proxy_port = extract_value(ll).strip()
-                proxy = (proxy_url, proxy_port)
+                proxy_port = extract_value(ll)
+                socks_proxy = (proxy_url, proxy_port)
+            if 'user_pref("network.proxy.http",' in ll:
+                proxy_url = extract_value(ll)
+                proxy_url = proxy_url[1:-1]
+            if 'user_pref("network.proxy.http_port"' in ll:
+                proxy_port = extract_value(ll)
+                http_proxy = (proxy_url, proxy_port)
+            if 'user_pref("network.proxy.ssl",' in ll:
+                proxy_url = extract_value(ll)
+                proxy_url = proxy_url[1:-1]
+            if 'user_pref("network.proxy.ssl_port"' in ll:
+                proxy_port = extract_value(ll)
+                ssl_proxy = (proxy_url, proxy_port)
 
-    return proxy
+    return (enable, socks_proxy, http_proxy, ssl_proxy)
 
 
 def get_proxy_from_profile(profile, appdata_path=''):
@@ -84,7 +99,7 @@ def get_proxy_from_profile(profile, appdata_path=''):
     # is read from prefs.js
     prefs_js_path = os.path.join(profile_path, 'user.js')
     user_proxy = read_proxy_from_profile_pref(prefs_js_path)
-    if user_proxy != ('', ''):
+    if user_proxy != (False, ('', ''), ('', ''), ('', '')):
         proxy = user_proxy
 
     return proxy
@@ -93,4 +108,4 @@ def get_proxy_from_profile(profile, appdata_path=''):
 if __name__ == '__main__':
     appdata_path = 'C:\\Users\\deann\\AppData\\Roaming\\Mozilla\\Firefox'
     profile_list = list_profiles(appdata_path)
-    print(get_proxy_from_profile(profile_list[2], appdata_path))
+    print(get_proxy_from_profile(profile_list[4], appdata_path))

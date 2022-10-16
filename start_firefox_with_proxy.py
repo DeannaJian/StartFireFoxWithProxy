@@ -33,10 +33,16 @@ class app_dialog(main_dialog_gui.MyFrame1):
             self.profile_dict = list_profiles(path)
             for pp in self.profile_dict:
                 name_list.append(pp['profile_name'])
-
-        self.m_choiceProfiles.SetItems(name_list)
-        self.m_choiceProfiles.SetSelection(0)
-        self.show_proxy()
+            self.m_choiceProfiles.SetItems(name_list)
+            self.m_choiceProfiles.SetSelection(0)
+            self.show_proxy()
+        else:
+            msg = 'Firefox App Data folder does not exists. '
+            msg = msg + 'Please choose a correct one.\n'
+            msg = msg + 'It is usally '
+            msg = msg + 'C: \\Users\\< username >\\AppData\\'
+            msg = msg + 'Roaming\\Mozilla\\Firefox"'
+            wx.MessageBox(msg, 'Error', wx.OK)
 
     def refresh_profiles(self, event):
         appdata_path = self.m_dirPicker_app_data.GetPath()
@@ -55,10 +61,16 @@ class app_dialog(main_dialog_gui.MyFrame1):
 
     def show_proxy(self):
         selection = self.m_choiceProfiles.GetSelection()
-        proxy = get_proxy_from_profile(
+        (proxy_enable, socks_proxy, http_proxy, ssl_proxy) = \
+            get_proxy_from_profile(
             self.profile_dict[selection], self.m_dirPicker_app_data.GetPath())
-        self.m_textCtrlSocksProxyUrl.SetValue(proxy[0])
-        self.m_textCtrlSocksProxyPort.SetValue(proxy[1])
+        self.m_checkBoxEnable.SetValue(proxy_enable)
+        self.m_textCtrlSocksProxyUrl.SetValue(socks_proxy[0])
+        self.m_textCtrlSocksProxyPort.SetValue(socks_proxy[1])
+        self.m_textCtrlHttpProxyURL.SetValue(http_proxy[0])
+        self.m_textCtrlHttpProxyPort.SetValue(http_proxy[1])
+        self.m_textCtrlHttpsProxyUrl.SetValue(http_proxy[0])
+        self.m_textCtrlHttpsProxyPort.SetValue(http_proxy[1])
 
     def select_profile(self, event):
         self.show_proxy()
@@ -66,11 +78,24 @@ class app_dialog(main_dialog_gui.MyFrame1):
     def start_firefox(self, event):
         self.save_settings()
 
-        self.settings['exe_dir']
+        if not os.path.exists(self.settings['exe_dir']):
+            msg = 'Program folder does not exists. Please choose again.'
+            wx.MessageBox(msg, 'Error', wx.OK)
+            return
+
         selection = self.m_choiceProfiles.GetSelection()
         cmd = 'cd /D "' + self.settings['exe_dir'] + '" && firefox -P '
         cmd = cmd + '"' + self.profile_dict[selection]['profile_name'] + '"'
-        # print(cmd)
+        os.system(cmd)
+
+    def add_profile(self, event):
+        if not os.path.exists(self.settings['exe_dir']):
+            msg = 'Program folder does not exists. Please choose again.'
+            wx.MessageBox(msg, 'Error', wx.OK)
+            return
+
+        selection = self.m_choiceProfiles.GetSelection()
+        cmd = 'cd /D "' + self.settings['exe_dir'] + '" && firefox -P'
         os.system(cmd)
 
 
