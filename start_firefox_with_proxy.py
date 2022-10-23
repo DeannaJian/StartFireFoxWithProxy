@@ -14,9 +14,6 @@ class app_dialog(main_dialog_gui.MyFrame1):
         self.settings = {}
         self.profile_dict = {}
 
-        # disable the Add Profile button temporarily
-        self.m_buttonNew.Disable()
-
         # load settings
         if os.path.exists(SETTNGS_FILE):
             with open(SETTNGS_FILE, 'r') as ff:
@@ -88,7 +85,7 @@ class app_dialog(main_dialog_gui.MyFrame1):
         cmd = cmd + '"' + self.profile_dict[selection]['profile_name'] + '"'
         os.system(cmd)
 
-    def add_profile(self, event):
+    def add_profiles(self, event):
         if not os.path.exists(self.settings['exe_dir']):
             msg = 'Program folder does not exists. Please choose again.'
             wx.MessageBox(msg, 'Error', wx.OK)

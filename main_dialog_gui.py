@@ -95,7 +95,7 @@ class MyFrame1 (wx.Frame):
         bSizer3 = wx.BoxSizer(wx.VERTICAL)
 
         self.m_staticText10 = wx.StaticText(
-            self.m_panel2, wx.ID_ANY, u"Proxy Settings in the selected profile", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.m_panel2, wx.ID_ANY, u"Proxy Settings in the Selected Profile", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText10.Wrap(-1)
 
         bSizer3.Add(self.m_staticText10, 0, wx.ALL, 5)
@@ -211,7 +211,7 @@ class MyFrame1 (wx.Frame):
             wx.EVT_DIRPICKER_CHANGED, self.pick_app_data_dir)
         self.m_choiceProfiles.Bind(wx.EVT_CHOICE, self.select_profile)
         self.m_buttonRefresh.Bind(wx.EVT_BUTTON, self.refresh_profiles)
-        self.m_buttonNew.Bind(wx.EVT_BUTTON, self.add_profile)
+        self.m_buttonNew.Bind(wx.EVT_BUTTON, self.add_profiles)
         self.m_buttonStart.Bind(wx.EVT_BUTTON, self.start_firefox)
 
     def __del__(self):
@@ -230,7 +230,7 @@ class MyFrame1 (wx.Frame):
     def refresh_profiles(self, event):
         event.Skip()
 
-    def add_profile(self, event):
+    def add_profiles(self, event):
         event.Skip()
 
     def start_firefox(self, event):
